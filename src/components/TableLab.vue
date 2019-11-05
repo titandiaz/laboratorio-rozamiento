@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" :border="true" style="max-width: 600px">
+  <el-table :summary-method="getSummaries" :data="tableData" style="max-width: 600px">
     <el-table-column label="Tabla 1" >
       <el-table-column prop="state" label="N°" width="40"></el-table-column>
       <el-table-column prop="peso" label="Peso" width="120">
@@ -108,29 +108,37 @@ export default {
     },
     getSummaries(param) {
         const { columns, data } = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = 'Costo total';
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = '$ ' + values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-          } else {
-            sums[index] = 'N/A';
-          }
-        });
+        // const sums = [];
+        
+        /* eslint-disable no-console */
+        console.log(columns);
+        /* eslint-disable no-console */
+        console.log(data);
+        /* eslint-disable no-console */
+        console.log('param');
+        
+        // columns.forEach((column, index) => {
+        //   if (index === 0) {
+        //     sums[index] = 'Costo total';
+        //     return;
+        //   }
+        //   const values = data.map(item => Number(item[column.property]));
+        //   if (!values.every(value => isNaN(value))) {
+        //     sums[index] = '$ ' + values.reduce((prev, curr) => {
+        //       const value = Number(curr);
+        //       if (!isNaN(value)) {
+        //         return prev + curr;
+        //       } else {
+        //         return prev;
+        //       }
+        //     }, 0);
+        //   } else {
+        //     sums[index] = 'N/A';
+        //   }
+        // });
 
-        return sums;
-      }
+        // return sums;
+      },
   },
   watch: {
     latex: function() {

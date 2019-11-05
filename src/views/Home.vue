@@ -131,6 +131,7 @@
             <div class="media">
               <p><strong>Media del ángulo:</strong></p>
               <p><strong>Media del &mu;:</strong></p>
+              <button class="btn btn-success" type="button">Calcular media</button>
             </div>
           </div>
         </div>
