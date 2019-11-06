@@ -27,4 +27,9 @@
     }
   }
 }
+@media print {
+  #app { 
+    padding: 50px !important;
+  }
+}
 </style>

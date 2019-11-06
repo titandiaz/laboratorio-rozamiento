@@ -121,19 +121,58 @@
             </li>
           </ol>
         </div>
-        <br>
+        <br />
       </li>
       <li>
         <div class="wrapper">
           <h4 class="title">Resultados</h4>
           <div class="wrapper-table">
-            <TableLab></TableLab>
+            <TableLab :tableData="tableData"></TableLab>
             <div class="media">
-              <p><strong>Media del ángulo:</strong></p>
-              <p><strong>Media del &mu;:</strong></p>
-              <button class="btn btn-success" type="button">Calcular media</button>
+              <p>
+                <strong>Media del ángulo:</strong>
+                {{mediaAngulo}}
+              </p>
+              <p>
+                <strong>Media del &mu;:</strong>
+                {{mediaFriction}}
+              </p>
+              <button @click="getMedia" class="btn btn-success" type="button">Calcular media</button>
             </div>
           </div>
+          <div class="wrapper-table">
+            <TableLab :tableData="tableData2"></TableLab>
+            <div class="wrapper">
+              <strong v-if="result" class="ecuacion">{{result.string}}</strong>
+              <button @click="getDots" class="btn btn-success" type="button">Graficar</button>
+            </div>
+          </div>
+          <Chart :mainX="mainX" :angulos="angulos" />
+          <div class="wrapper-table">
+            <TableMaterials></TableMaterials>
+            <p></p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="wrapper wrapper-preguntas">
+          <h4 class="title">Preguntas</h4>
+        <ol>
+          <li>
+            ¿Qué sucede con el coeficiente de fricción estática al cambiar la masa del
+            bloque de madera?
+          </li>
+          <li>
+            ¿Qué sucede con la fuerza de fricción estática máxima al cambiar la masa del
+            bloque de madera? Debe de cambiar, porque al cambiar la masa, cambia la
+            normal
+          </li>
+          <li>
+            ¿Qué sucede con la fuerza de fricción estática cuando se cambia el ángulo de
+            inclinación?
+          </li>
+          <li>¿Qué sucede con la fuerza normal cuando se cambia el ángulo de inclinación?</li>
+        </ol>
         </div>
       </li>
     </ul>
@@ -145,14 +184,18 @@
 </template>
 
 <script>
-import TableLab from '@/components/TableLab.vue';
+import TableLab from "@/components/TableLab.vue";
+import TableMaterials from "@/components/TableMaterials.vue";
+import Chart from "@/components/Chart.vue";
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: "home",
   components: {
-    TableLab
+    TableLab,
+    TableMaterials,
+    Chart
     // 'vue-mathjax': VueMathjax
     // HelloWorld
   },
@@ -164,14 +207,143 @@ export default {
       form: "",
       formula: "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$",
       formula1: "\\[\\sum F_{x}=mg \\sin\\theta - f_{s}=0\\]",
-      formula2: "\\[\\sum F_{y}= N - mg \\cos\\theta=0\\]"
+      formula2: "\\[\\sum F_{y}= N - mg \\cos\\theta=0\\]",
+      mainX: [2, 4, 6, 8, 10],
+      angulos: [3, 6, 9, 12, 15],
+      tableData: [
+        {
+          state: "1",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "2",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "3",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "4",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "5",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "6",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "50"
+        },
+        {
+          state: "7",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "8",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "9",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        },
+        {
+          state: "10",
+          incertidumbre: "+ 0.5°",
+          peso: "0",
+          angulo: "45"
+        }
+      ],
+      tableData2: [
+        {
+          state: "1",
+          incertidumbre: "+ 0.5°",
+          peso: "100",
+          angulo: "45"
+        },
+        {
+          state: "2",
+          incertidumbre: "+ 0.5°",
+          peso: "200",
+          angulo: "45"
+        },
+        {
+          state: "3",
+          incertidumbre: "+ 0.5°",
+          peso: "300",
+          angulo: "45"
+        },
+        {
+          state: "4",
+          incertidumbre: "+ 0.5°",
+          peso: "400",
+          angulo: "45"
+        },
+        {
+          state: "5",
+          incertidumbre: "+ 0.5°",
+          peso: "500",
+          angulo: "45"
+        }
+      ]
     };
+  },
+  computed: {
+    media() {
+      return this.$store.state.media;
+    },
+    mediaAngulo() {
+      return this.$store.state.mediaAngulo;
+    },
+    mediaFriction() {
+      return this.$store.state.mediaFriction;
+    },
+    result() {
+      return this.$store.state.result;
+    }
   },
   methods: {
     reRender() {
       if (window.MathJax) {
         window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub], () => {});
       }
+    },
+    getMedia() {
+      this.$store.commit("SET_MEDIA", !this.media);
+    },
+    getDots() {
+      this.getPeso();
+      this.getAngulos();
+    },
+    getPeso() {
+      this.mainX = [];
+      this.tableData2.forEach(item => {
+        this.mainX.push(parseInt(item.peso));
+      });
+    },
+    getAngulos() {
+      this.angulos = [];
+      this.tableData2.forEach(item => {
+        this.angulos.push(parseInt(item.angulo));
+      });
     }
   },
   watch: {
@@ -214,7 +386,11 @@ p {
 .wrapper-table {
   width: calc(100% - 40px);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrapper-table {
+  margin-top: 30px;
 }
 .img-friccion {
   max-width: 300px;
@@ -230,5 +406,14 @@ figure {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.ecuacion {
+  margin-bottom: 20px;
+}
+.wrapper-preguntas {
+  margin-top: 30px;
+  li {
+    margin: 20px 0;
+  }
 }
 </style>

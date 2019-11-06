@@ -9,7 +9,8 @@
     </div>
     <div class="body">
       <p class="display-4">Cristian Camilo Diaz</p>
-      <p class="display-4">Camilo Murcia</p>
+      <p class="display-4">Juan Carlos Otalora</p>
+      <p class="display-4 profesor">Ing. Isaias Olarte</p>
       <!-- <h4 class="subtitle">Estudiantes</h4> -->
     </div>
     <div class="footer">
@@ -52,5 +53,8 @@ export default {
   &:hover {
     color: #fff;
   }
+}
+.profesor {
+  margin-top: 70px !important;
 }
 </style>
