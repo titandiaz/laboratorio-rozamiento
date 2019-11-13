@@ -5,7 +5,7 @@ import store from './store'
 import { Table, TableColumn, Input } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // import 'element-ui/lib/theme-chalk/index.css';
-import 'argon-design-system-free/assets/css/argon.css'
+import './assets/argon.css'
 import VueMathjax from 'vue-mathjax'
 import Chart from 'vue2-frappe'
 
