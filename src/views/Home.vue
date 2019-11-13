@@ -176,6 +176,9 @@
         </div>
       </li>
     </ul>
+    <h4 class="title">Simuladores</h4>
+    <Simulador2/>
+    <Simulador/>
     <!-- <h4 class="display-4">Objetivo general</h4>
     <p class="">Estudiar la fuerza de fricción estática.</p>
     <h4 class="display-4">Objetivos específicos</h4>
@@ -187,6 +190,8 @@
 import TableLab from "@/components/TableLab.vue";
 import TableMaterials from "@/components/TableMaterials.vue";
 import Chart from "@/components/Chart.vue";
+import Simulador from "@/components/simulador.vue"
+import Simulador2 from "@/components/Simulador2.vue"
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
@@ -195,7 +200,9 @@ export default {
   components: {
     TableLab,
     TableMaterials,
-    Chart
+    Chart,
+    Simulador,
+    Simulador2
     // 'vue-mathjax': VueMathjax
     // HelloWorld
   },
